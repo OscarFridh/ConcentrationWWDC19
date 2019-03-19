@@ -15,6 +15,9 @@ class MyViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set up collectionView and add it to the view hierarchy
+        collectionView.dataSource = self
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         view.addSubview(collectionView)
         
         // Pin collectionView to view
@@ -25,5 +28,19 @@ class MyViewController : UIViewController {
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }
+
+extension MyViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        cell.backgroundColor = .white
+        return cell
+    }
+}
+
 // Present the view controller in the Live View window
 PlaygroundPage.current.liveView = MyViewController()
