@@ -3,6 +3,59 @@
 import UIKit
 import PlaygroundSupport
 
+class ConcentrationGame {
+    
+    let cards: [Card]
+    
+    init(_ content: Set<Character>) {
+        var array = [Card]()
+        array += content.map { Card(content: $0) }
+        array += content.map { Card(content: $0) }
+        cards = array.shuffled()
+    }
+    
+    func select(_ card: Card) {
+        
+        // Deselect last match/mismatch
+        if selectedCards.count == 2 {
+            selectedCards.forEach { $0.isSelected = false }
+        }
+        
+        // Select the new card
+        card.isSelected = true
+        
+        // Mark matches
+        if hasSelectedTwoMatchingCards {
+            selectedCards.forEach { $0.hasBeenMatched = true }
+        }
+    }
+    
+    private var hasSelectedTwoMatchingCards: Bool {
+        return selectedCards.count == 2 && Set(selectedCards.map { $0.content }).count == 1
+    }
+    
+    private var selectedCards: [Card] {
+        return cards.filter { $0.isSelected }
+    }
+    
+}
+
+
+class Card {
+    
+    let content: Character
+    fileprivate(set) var isSelected: Bool
+    fileprivate(set) var hasBeenMatched: Bool
+    
+    init(content: Character) {
+        self.content = content
+        self.isSelected = false
+        self.hasBeenMatched = false
+    }
+    
+}
+
+
 class MyViewController : UIViewController {
     
     private let collectionView: UICollectionView = {
@@ -16,13 +69,13 @@ class MyViewController : UIViewController {
         return collectionView
     }()
     
-    let data: [Character] = [
+    let game = ConcentrationGame([
         "😍",
         "👏",
         "🧠",
         "🤞",
         "👨🏻‍💻"
-    ]
+        ])
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +97,12 @@ class MyViewController : UIViewController {
 extension MyViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        return game.cards.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyCell
-        cell.character = data[indexPath.row]
+        cell.character = game.cards[indexPath.row].content
         return cell
     }
 }
