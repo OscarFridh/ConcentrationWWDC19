@@ -41,8 +41,7 @@ extension MyViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .white
-        cell.layer.cornerRadius = cell.frame.width/4
+        // TODO: Configure with text from model and maybe update font size!
         return cell
     }
 }
@@ -50,7 +49,7 @@ extension MyViewController: UICollectionViewDataSource {
 
 class MyCell: UICollectionViewCell {
     
-    private var testView: UIView!
+    private var label: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,18 +57,24 @@ class MyCell: UICollectionViewCell {
     }
     
     private func setUp() {
+        
+        clipsToBounds = true
+        backgroundColor = .white
+        layer.cornerRadius = frame.width/4
+        
         // Important that the view retained and fully set up here! Otherwise it won't show up in the playground.
+        label = UILabel()
+        label.text = "?"
+        label.font = UIFont.systemFont(ofSize: 24)
+        label.textAlignment = .center
         
-        testView = UIView()
-        testView.backgroundColor = .magenta
+        contentView.addSubview(label)
         
-        contentView.addSubview(testView)
-        
-        testView.translatesAutoresizingMaskIntoConstraints = false
-        testView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        testView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        testView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
-        testView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3).isActive = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        label.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
