@@ -21,7 +21,7 @@ class MyViewController : UIViewController {
         
         // Set up collectionView and add it to the view hierarchy
         collectionView.dataSource = self
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(MyCell.self.self, forCellWithReuseIdentifier: "cell")
         view.addSubview(collectionView)
         
         // Pin collectionView to view
@@ -44,6 +44,36 @@ extension MyViewController: UICollectionViewDataSource {
         cell.backgroundColor = .white
         cell.layer.cornerRadius = cell.frame.width/4
         return cell
+    }
+}
+
+
+class MyCell: UICollectionViewCell {
+    
+    private var testView: UIView!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUp()
+    }
+    
+    private func setUp() {
+        // Important that the view retained and fully set up here! Otherwise it won't show up in the playground.
+        
+        testView = UIView()
+        testView.backgroundColor = .magenta
+        
+        contentView.addSubview(testView)
+        
+        testView.translatesAutoresizingMaskIntoConstraints = false
+        testView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        testView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        testView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
+        testView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3).isActive = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("Not implemented or needed in this example")
     }
 }
 
