@@ -63,13 +63,21 @@ class MyCell: UICollectionViewCell {
         layer.cornerRadius = frame.width/4
         
         // Important that the view retained and fully set up here! Otherwise it won't show up in the playground.
-        label = UILabel()
+        label = createLabel()
+        
+        contentView.addSubview(label)
+        setupConstraints()
+    }
+    
+    private func createLabel() -> UILabel {
+        let label = UILabel()
         label.text = "?"
         label.font = UIFont.systemFont(ofSize: 24)
         label.textAlignment = .center
-        
-        contentView.addSubview(label)
-        
+        return label
+    }
+    
+    private func setupConstraints() {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
