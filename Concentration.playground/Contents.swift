@@ -16,6 +16,14 @@ class MyViewController : UIViewController {
         return collectionView
     }()
     
+    let data: [Character] = [
+        "😍",
+        "👏",
+        "🧠",
+        "🤞",
+        "👨🏻‍💻"
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,18 +44,30 @@ class MyViewController : UIViewController {
 extension MyViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        // TODO: Configure with text from model and maybe update font size!
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyCell
+        cell.character = data[indexPath.row]
         return cell
     }
 }
 
 
 class MyCell: UICollectionViewCell {
+    
+    var character: Character? {
+        get {
+            return label.text?.first
+        } set {
+            if let newValue = newValue {
+                label.text = String(newValue)
+            } else {
+                label.text = nil
+            }
+        }
+    }
     
     private var label: UILabel!
     
@@ -72,7 +92,7 @@ class MyCell: UICollectionViewCell {
     private func createLabel() -> UILabel {
         let label = UILabel()
         label.text = "?"
-        label.font = UIFont.systemFont(ofSize: 24)
+        label.font = UIFont.systemFont(ofSize: frame.width*0.6)
         label.textAlignment = .center
         return label
     }
