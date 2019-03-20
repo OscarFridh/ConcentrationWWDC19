@@ -3,7 +3,7 @@
 import UIKit
 
 public class ConcentrationViewController : UIViewController {
-
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
@@ -15,13 +15,8 @@ public class ConcentrationViewController : UIViewController {
         return collectionView
     }()
 
-    public let game = ConcentrationGame([
-        "😍",
-        "👏",
-        "🧠",
-        "🤞",
-        "👨🏻‍💻"
-        ])
+    // Dependency injection
+    public var game: ConcentrationGame!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
