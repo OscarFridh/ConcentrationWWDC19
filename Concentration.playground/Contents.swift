@@ -82,6 +82,7 @@ class MyViewController : UIViewController {
         
         // Set up collectionView and add it to the view hierarchy
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.register(MyCell.self.self, forCellWithReuseIdentifier: "cell")
         view.addSubview(collectionView)
         
@@ -102,11 +103,25 @@ extension MyViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyCell
-        cell.character = game.cards[indexPath.row].content
+        let card = game.cards[indexPath.row]
+        if card.isSelected {
+            cell.character = card.content
+        } else if card.hasBeenMatched {
+            cell.character = "✅"
+        } else {
+            cell.character = "?"
+        }
+        
         return cell
     }
 }
 
+extension MyViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        game.select(game.cards[indexPath.row])
+        collectionView.reloadData()
+    }
+}
 
 class MyCell: UICollectionViewCell {
     
