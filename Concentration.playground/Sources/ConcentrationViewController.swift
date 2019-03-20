@@ -2,7 +2,7 @@
   
 import UIKit
 
-public class MyViewController : UIViewController {
+public class ConcentrationViewController : UIViewController {
 
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -41,7 +41,7 @@ public class MyViewController : UIViewController {
     }
 }
 
-extension MyViewController: UICollectionViewDataSource {
+extension ConcentrationViewController: UICollectionViewDataSource {
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return game.cards.count
@@ -62,7 +62,7 @@ extension MyViewController: UICollectionViewDataSource {
     }
 }
 
-extension MyViewController: UICollectionViewDelegate {
+extension ConcentrationViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         game.select(game.cards[indexPath.row])
         collectionView.reloadData()

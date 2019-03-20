@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B812DAC6224282A10040764D /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812DAC5224282A10040764D /* MyViewController.swift */; };
+		B812DAC6224282A10040764D /* ConcentrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812DAC5224282A10040764D /* ConcentrationViewController.swift */; };
 		B8BF02C122427D1000CAED89 /* ConcentrationGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8BF02B722427D1000CAED89 /* ConcentrationGame.framework */; };
 		B8BF02C622427D1000CAED89 /* ConcentrationGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF02C522427D1000CAED89 /* ConcentrationGameTests.swift */; };
 		B8BF02C822427D1000CAED89 /* ConcentrationGame.h in Headers */ = {isa = PBXBuildFile; fileRef = B8BF02BA22427D1000CAED89 /* ConcentrationGame.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -25,7 +25,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B812DAC5224282A10040764D /* MyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewController.swift; path = ../../Concentration.playground/Sources/MyViewController.swift; sourceTree = "<group>"; };
+		B812DAC5224282A10040764D /* ConcentrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConcentrationViewController.swift; path = ../../Concentration.playground/Sources/ConcentrationViewController.swift; sourceTree = "<group>"; };
 		B8BF02B722427D1000CAED89 /* ConcentrationGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ConcentrationGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8BF02BA22427D1000CAED89 /* ConcentrationGame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConcentrationGame.h; sourceTree = "<group>"; };
 		B8BF02BB22427D1000CAED89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				B8BF02BA22427D1000CAED89 /* ConcentrationGame.h */,
-				B812DAC5224282A10040764D /* MyViewController.swift */,
+				B812DAC5224282A10040764D /* ConcentrationViewController.swift */,
 				B8BF02D822427F0D00CAED89 /* ConcentrationGame.swift */,
 				B8BF02BB22427D1000CAED89 /* Info.plist */,
 			);
@@ -201,7 +201,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B812DAC6224282A10040764D /* MyViewController.swift in Sources */,
+				B812DAC6224282A10040764D /* ConcentrationViewController.swift in Sources */,
 				B8BF02D922427F0D00CAED89 /* ConcentrationGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
