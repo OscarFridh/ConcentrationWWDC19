@@ -34,7 +34,6 @@
 		B8BF02BA22427D1000CAED89 /* ConcentrationGame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConcentrationGame.h; sourceTree = "<group>"; };
 		B8BF02BB22427D1000CAED89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B8BF02C022427D1000CAED89 /* ConcentrationGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConcentrationGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B8BF02C522427D1000CAED89 /* ConcentrationGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcentrationGameTests.swift; sourceTree = "<group>"; };
 		B8BF02C722427D1000CAED89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				B843A68B2242B57900C294C5 /* GameStateTests.swift */,
-				B8BF02C522427D1000CAED89 /* ConcentrationGameTests.swift */,
 				B8BF02C722427D1000CAED89 /* Info.plist */,
 			);
 			path = ConcentrationGameTests;
