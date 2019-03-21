@@ -31,9 +31,12 @@ class CardCell: UICollectionViewCell {
     
     private func setUp() {
         
-        clipsToBounds = true
-        backgroundColor = .white
-        layer.cornerRadius = frame.width/4
+//        clipsToBounds = true
+        backgroundColor = nil
+        
+        contentView.clipsToBounds = true
+        contentView.backgroundColor = .white
+        contentView.layer.cornerRadius = frame.width/4
         
         // Important that the view retained and fully set up here! Otherwise it won't show up in the playground.
         label = createLabel()

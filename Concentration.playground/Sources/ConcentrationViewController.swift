@@ -10,7 +10,7 @@ public class ConcentrationViewController : UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         layout.minimumLineSpacing = 20
         layout.minimumInteritemSpacing = 20
-        layout.itemSize = CGSize(width: 60, height: 60)
+        layout.itemSize = CGSize(width: 200, height: 200)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = #colorLiteral(red: 0.07843137255, green: 0.09803921569, blue: 0.1843137255, alpha: 1)
         return collectionView
@@ -57,8 +57,12 @@ extension ConcentrationViewController: UICollectionViewDataSource {
         let cardState = currentGameState.state(for: card)
         
         if cardState.hasBeenMatched {
-            cell.character = "✅"
-        } else if cardState.isSelected {
+            cell.contentView.alpha = 0
+        } else {
+            cell.contentView.alpha = 1
+        }
+        
+        if cardState.isSelected {
             cell.character = card.content
         } else {
             cell.character = "?"
@@ -87,24 +91,24 @@ extension ConcentrationViewController: UICollectionViewDelegate {
             // 2.a. Hide previous selection and show the new card
             if !oldGameState.selectedCards.intersection(oldGameState.matchedCards).isEmpty {
                 // The last selection was a match so we don't need to flip those cards here
-                flipAndUpdateView(for: card)
+                flipCard(card, faceUp: true)
             } else {
-                flipAndUpdateView(for: oldGameState.selectedCards) {
-                    self.flipAndUpdateView(for: card)
+                flipCards(oldGameState.selectedCards, faceUp: false) {
+                    self.flipCard(card, faceUp: true)
                 }
             }
             
         } else if currentGameState.state(for: card).hasBeenMatched {
             
             // 2.b Show the new card and animation for correct answer
-            flipAndUpdateView(for: card) { _ in
+            flipCard(card, faceUp: true) { _ in
                 self.animateMatch(for: capturedGameState.selectedCards)
             }
             
         } else {
             
             // 2.c Show the new card and animation for wrong answer
-            flipAndUpdateView(for: card)
+            flipCard(card, faceUp: true)
             print("TODO: Wrong answer animation")
         }
     }
@@ -114,13 +118,13 @@ extension ConcentrationViewController: UICollectionViewDelegate {
 
 extension ConcentrationViewController {
     
-    private func flipAndUpdateView(for cards: Set<Card>, completion: (() -> ())? = nil) {
+    private func flipCards(_ cards: Set<Card>, faceUp: Bool, completion: (() -> ())? = nil) {
         
         let group = DispatchGroup()
         
         for card in cards {
             group.enter()
-            flipAndUpdateView(for: card) { _ in
+            flipCard(card, faceUp: faceUp) { _ in
                 group.leave()
             }
         }
@@ -130,17 +134,19 @@ extension ConcentrationViewController {
         }
     }
     
-    
-    private func flipAndUpdateView(for card: Card, completion: ((Bool) -> ())? = nil) {
+    private func flipCard(_ card: Card, faceUp: Bool, completion: ((Bool) -> ())? = nil) {
         
         guard let cell = cellForCard(card) else {
+            // IMPORTANT: We still need to refresh the cell and call the completion handler!
+            collectionView.reloadItems(at: [indexPathForCard(card)])
+            completion?(false)
             return
         }
         
         let newCharacter: Character
         let transition: UIView.AnimationOptions
         
-        if currentGameState.state(for: card).isSelected {
+        if faceUp {
             newCharacter = card.content
             transition = .transitionFlipFromTop
         } else {
@@ -152,6 +158,10 @@ extension ConcentrationViewController {
                           animations: {
                             cell.character = newCharacter
         }, completion: completion)
+    }
+    
+    private func indexPathForCard(_ card: Card) -> IndexPath {
+        return IndexPath(row: shuffledCards.lastIndex(of: card)!, section: 0)
     }
     
     
@@ -169,7 +179,7 @@ extension ConcentrationViewController {
         UIView.animate(withDuration: 0.5, animations: {
             for card in cards {
                 if let cell = self.cellForCard(card) {
-                    cell.alpha = 0
+                    cell.contentView.alpha = 0
                 }
             }
         })
