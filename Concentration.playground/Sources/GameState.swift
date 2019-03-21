@@ -73,8 +73,10 @@ public struct GameState {
     }
 }
 
+
 /// Helper method for querying card states
 private extension Dictionary where Key == Card, Value == CardState {
+    
     var selectedCards: [Card] {
         return filter { $0.value.isSelected }.map { $0.key }
     }
@@ -84,8 +86,10 @@ private extension Dictionary where Key == Card, Value == CardState {
     }
 }
 
+
 /// Identifies a single card in a game of concentration
 public struct Card: Hashable {
+    
     private let id: Int
     let content: Character
     
@@ -103,7 +107,9 @@ public struct Card: Hashable {
     }
 }
 
+
 public struct CardState: Hashable {
+    
     public fileprivate(set) var isSelected: Bool
     public fileprivate(set) var hasBeenMatched: Bool
     

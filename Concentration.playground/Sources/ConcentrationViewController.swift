@@ -21,6 +21,7 @@ public class ConcentrationViewController : UIViewController {
     
     lazy private var shuffledCards: [Card] = Array(currentGameState.cards).shuffled()
 
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -67,6 +68,7 @@ extension ConcentrationViewController: UICollectionViewDataSource {
 }
 
 extension ConcentrationViewController: UICollectionViewDelegate {
+    
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let card = shuffledCards[indexPath.row]
         let cardState = currentGameState.state(for: card)
@@ -128,6 +130,7 @@ extension ConcentrationViewController {
         }
     }
     
+    
     private func flipAndUpdateView(for card: Card, completion: ((Bool) -> ())? = nil) {
         
         guard let cell = cellForCard(card) else {
@@ -151,6 +154,7 @@ extension ConcentrationViewController {
         }, completion: completion)
     }
     
+    
     private func cellForCard(_ card: Card) -> CardCell? {
         guard let shuffledIndex = shuffledCards.lastIndex(of: card) else {
             return nil
@@ -159,6 +163,7 @@ extension ConcentrationViewController {
         let indexPath = IndexPath(row: shuffledIndex, section: 0)
         return collectionView.cellForItem(at: indexPath) as? CardCell
     }
+    
     
     private func animateMatch(for cards: Set<Card>) {
         UIView.animate(withDuration: 0.5, animations: {
