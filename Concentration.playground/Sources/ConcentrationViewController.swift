@@ -5,6 +5,7 @@ import UIKit
 public class ConcentrationViewController : UIViewController {
     
     private let collectionView: UICollectionView = {
+        // TODO: Add a more interesting custom layout
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         layout.minimumLineSpacing = 20
@@ -82,10 +83,14 @@ extension ConcentrationViewController: UICollectionViewDelegate {
         if currentGameState.selectedCards.count == 1 {
             
             // 2.a. Hide previous selection and show the new card
-            for card in oldGameState.selectedCards {
+            if !oldGameState.selectedCards.intersection(oldGameState.matchedCards).isEmpty {
+                // The last selection was a match so we don't need to flip those cards here
                 flipAndUpdateView(for: card)
+            } else {
+                flipAndUpdateView(for: oldGameState.selectedCards) {
+                    self.flipAndUpdateView(for: card)
+                }
             }
-            flipAndUpdateView(for: card)
             
         } else if currentGameState.state(for: card).hasBeenMatched {
             
@@ -106,6 +111,22 @@ extension ConcentrationViewController: UICollectionViewDelegate {
 // MARK: Animations
 
 extension ConcentrationViewController {
+    
+    private func flipAndUpdateView(for cards: Set<Card>, completion: (() -> ())? = nil) {
+        
+        let group = DispatchGroup()
+        
+        for card in cards {
+            group.enter()
+            flipAndUpdateView(for: card) { _ in
+                group.leave()
+            }
+        }
+        
+        if let completion = completion {
+            group.notify(queue: .main, work: DispatchWorkItem(block: completion))
+        }
+    }
     
     private func flipAndUpdateView(for card: Card, completion: ((Bool) -> ())? = nil) {
         
@@ -147,16 +168,5 @@ extension ConcentrationViewController {
                 }
             }
         })
-    }
-    
-    private func matchCard(_ card: Card) {
-        
-        guard let cell = cellForCard(card) else {
-            return
-        }
-        
-        UIView.animate(withDuration: 1, delay: 2, options: [], animations: {
-            cell.alpha = 0
-        }, completion: nil)
     }
 }
