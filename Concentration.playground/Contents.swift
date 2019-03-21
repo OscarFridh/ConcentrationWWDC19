@@ -3,7 +3,7 @@
 import PlaygroundSupport
 
 
-let game = ConcentrationGame([
+let game = GameState([
     "😍",
     "👏",
     "🧠",
@@ -11,7 +11,7 @@ let game = ConcentrationGame([
     "👨🏻‍💻"])
 
 let viewController = ConcentrationViewController()
-viewController.game = game
+viewController.currentGameState = game
 
 // Present the view controller in the Live View window
 PlaygroundPage.current.liveView = viewController

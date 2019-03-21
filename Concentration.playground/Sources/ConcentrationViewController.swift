@@ -16,7 +16,45 @@ public class ConcentrationViewController : UIViewController {
     }()
 
     // Dependency injection
-    public var game: ConcentrationGame!
+    public var currentGameState: GameState!
+    
+    private func flipAndUpdateView(for card: Card) {
+        
+        guard let shuffledIndex = shuffledCards.lastIndex(of: card) else {
+            return
+        }
+        
+        let indexPath = IndexPath(row: shuffledIndex, section: 0)
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? MyCell else {
+            return
+        }
+        
+        if currentGameState.state(for: card).isSelected {
+            cell.transitionTo(character: card.content, options: .transitionFlipFromTop)
+        } else {
+            cell.transitionTo(character: "?", options: .transitionFlipFromBottom)
+        }
+    }
+    
+    private func matchCard(_ card: Card) {
+        
+        guard let shuffledIndex = shuffledCards.lastIndex(of: card) else {
+            return
+        }
+        
+        let indexPath = IndexPath(row: shuffledIndex, section: 0)
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? MyCell else {
+            return
+        }
+        
+        UIView.animate(withDuration: 1, delay: 2, options: [], animations: {
+            cell.alpha = 0
+        }, completion: nil)
+    }
+    
+    lazy private var shuffledCards: [Card] = Array(currentGameState.cards).shuffled()
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,28 +77,58 @@ public class ConcentrationViewController : UIViewController {
 extension ConcentrationViewController: UICollectionViewDataSource {
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return game.cards.count
+        return shuffledCards.count
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyCell
-        let card = game.cards[indexPath.row]
-        if card.isSelected {
-            cell.character = card.content
-        } else if card.hasBeenMatched {
+        let card = shuffledCards[indexPath.row]
+        configureCell(cell, forCard: card)
+        return cell
+    }
+    
+    private func configureCell(_ cell: MyCell, forCard card: Card) {
+        let cardState = currentGameState.state(for: card)
+        
+        if cardState.hasBeenMatched {
             cell.character = "✅"
+        } else if cardState.isSelected {
+            cell.character = card.content
         } else {
             cell.character = "?"
         }
-
-        return cell
     }
+    
 }
 
 extension ConcentrationViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        game.select(game.cards[indexPath.row])
-        collectionView.reloadData()
+        let card = shuffledCards[indexPath.row]
+        let cardState = currentGameState.state(for: card)
+        
+        guard !cardState.hasBeenMatched && !cardState.isSelected else {
+            return
+        }
+        let oldGameState = currentGameState!
+        
+        // 1. Update the model
+        currentGameState = currentGameState.selecting(card)
+        
+        if currentGameState.selectedCards.count == 1 {
+            // 2.a. Hide previous selection and show the new card
+            for card in oldGameState.selectedCards {
+                flipAndUpdateView(for: card)
+            }
+            flipAndUpdateView(for: card)
+        } else if currentGameState.state(for: card).hasBeenMatched {
+            // 2.b Show the new card and animation for correct answer
+            flipAndUpdateView(for: card)
+            print("TODO: Correct answer animation")
+        } else {
+            // 2.c Show the new card and animation for wrong answer
+            flipAndUpdateView(for: card)
+            print("TODO: Wrong answer animation")
+        }
     }
 }
 
@@ -76,6 +144,13 @@ class MyCell: UICollectionViewCell {
                 label.text = nil
             }
         }
+    }
+    
+    func transitionTo(character: Character, options: UIView.AnimationOptions = .transitionFlipFromTop) {
+        UIView.transition(with: self, duration: 0.5, options: options,
+                          animations: {
+                            self.character = character
+        }, completion: nil)
     }
 
     private var label: UILabel!
