@@ -18,52 +18,6 @@ public class ConcentrationViewController : UIViewController {
     // Dependency injection
     public var currentGameState: GameState!
     
-    private func flipAndUpdateView(for card: Card) {
-        
-        guard let shuffledIndex = shuffledCards.lastIndex(of: card) else {
-            return
-        }
-        
-        let indexPath = IndexPath(row: shuffledIndex, section: 0)
-        
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CardCell else {
-            return
-        }
-        
-        let newCharacter: Character
-        let transition: UIView.AnimationOptions
-        
-        if currentGameState.state(for: card).isSelected {
-            newCharacter = card.content
-            transition = .transitionFlipFromTop
-        } else {
-            newCharacter = "?"
-            transition = .transitionFlipFromBottom
-        }
-        
-        UIView.transition(with: cell, duration: 0.5, options: transition,
-                          animations: {
-                            cell.character = newCharacter
-        }, completion: nil)
-    }
-    
-    private func matchCard(_ card: Card) {
-        
-        guard let shuffledIndex = shuffledCards.lastIndex(of: card) else {
-            return
-        }
-        
-        let indexPath = IndexPath(row: shuffledIndex, section: 0)
-        
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CardCell else {
-            return
-        }
-        
-        UIView.animate(withDuration: 1, delay: 2, options: [], animations: {
-            cell.alpha = 0
-        }, completion: nil)
-    }
-    
     lazy private var shuffledCards: [Card] = Array(currentGameState.cards).shuffled()
 
     public override func viewDidLoad() {
@@ -139,5 +93,53 @@ extension ConcentrationViewController: UICollectionViewDelegate {
             flipAndUpdateView(for: card)
             print("TODO: Wrong answer animation")
         }
+    }
+}
+
+// MARK: Animations
+
+extension ConcentrationViewController {
+    
+    private func flipAndUpdateView(for card: Card) {
+        
+        guard let cell = cellForCard(card) else {
+            return
+        }
+        
+        let newCharacter: Character
+        let transition: UIView.AnimationOptions
+        
+        if currentGameState.state(for: card).isSelected {
+            newCharacter = card.content
+            transition = .transitionFlipFromTop
+        } else {
+            newCharacter = "?"
+            transition = .transitionFlipFromBottom
+        }
+        
+        UIView.transition(with: cell, duration: 0.5, options: transition,
+                          animations: {
+                            cell.character = newCharacter
+        }, completion: nil)
+    }
+    
+    private func cellForCard(_ card: Card) -> CardCell? {
+        guard let shuffledIndex = shuffledCards.lastIndex(of: card) else {
+            return nil
+        }
+        
+        let indexPath = IndexPath(row: shuffledIndex, section: 0)
+        return collectionView.cellForItem(at: indexPath) as? CardCell
+    }
+    
+    private func matchCard(_ card: Card) {
+        
+        guard let cell = cellForCard(card) else {
+            return
+        }
+        
+        UIView.animate(withDuration: 1, delay: 2, options: [], animations: {
+            cell.alpha = 0
+        }, completion: nil)
     }
 }
