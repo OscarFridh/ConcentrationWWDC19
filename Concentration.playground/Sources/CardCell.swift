@@ -31,7 +31,6 @@ class CardCell: UICollectionViewCell {
     
     private func setUp() {
         
-//        clipsToBounds = true
         backgroundColor = nil
         
         contentView.clipsToBounds = true

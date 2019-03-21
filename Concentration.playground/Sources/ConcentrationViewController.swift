@@ -15,9 +15,15 @@ public class ConcentrationViewController : UIViewController {
         collectionView.backgroundColor = #colorLiteral(red: 0.07843137255, green: 0.09803921569, blue: 0.1843137255, alpha: 1)
         return collectionView
     }()
-
+    
     // Dependency injection
-    public var currentGameState: GameState!
+    public var cards: Set<Character>! {
+        didSet {
+            currentGameState = GameState(cards)
+        }
+    }
+
+    private var currentGameState: GameState!
     
     lazy private var shuffledCards: [Card] = Array(currentGameState.cards).shuffled()
 
