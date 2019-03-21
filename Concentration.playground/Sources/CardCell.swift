@@ -22,13 +22,6 @@ class CardCell: UICollectionViewCell {
         }
     }
     
-    func transitionTo(character: Character, options: UIView.AnimationOptions = .transitionFlipFromTop) {
-        UIView.transition(with: self, duration: 0.5, options: options,
-                          animations: {
-                            self.character = character
-        }, completion: nil)
-    }
-    
     private var label: UILabel!
     
     override init(frame: CGRect) {

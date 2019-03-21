@@ -30,11 +30,21 @@ public class ConcentrationViewController : UIViewController {
             return
         }
         
+        let newCharacter: Character
+        let transition: UIView.AnimationOptions
+        
         if currentGameState.state(for: card).isSelected {
-            cell.transitionTo(character: card.content, options: .transitionFlipFromTop)
+            newCharacter = card.content
+            transition = .transitionFlipFromTop
         } else {
-            cell.transitionTo(character: "?", options: .transitionFlipFromBottom)
+            newCharacter = "?"
+            transition = .transitionFlipFromBottom
         }
+        
+        UIView.transition(with: cell, duration: 0.5, options: transition,
+                          animations: {
+                            cell.character = newCharacter
+        }, completion: nil)
     }
     
     private func matchCard(_ card: Card) {
