@@ -77,18 +77,25 @@ extension ConcentrationViewController: UICollectionViewDelegate {
         
         // 1. Update the model
         currentGameState = currentGameState.selecting(card)
+        let capturedGameState = currentGameState! // Capture the current game state for later use in animations
         
         if currentGameState.selectedCards.count == 1 {
+            
             // 2.a. Hide previous selection and show the new card
             for card in oldGameState.selectedCards {
                 flipAndUpdateView(for: card)
             }
             flipAndUpdateView(for: card)
+            
         } else if currentGameState.state(for: card).hasBeenMatched {
+            
             // 2.b Show the new card and animation for correct answer
-            flipAndUpdateView(for: card)
-            print("TODO: Correct answer animation")
+            flipAndUpdateView(for: card) { _ in
+                self.animateMatch(for: capturedGameState.selectedCards)
+            }
+            
         } else {
+            
             // 2.c Show the new card and animation for wrong answer
             flipAndUpdateView(for: card)
             print("TODO: Wrong answer animation")
@@ -100,7 +107,7 @@ extension ConcentrationViewController: UICollectionViewDelegate {
 
 extension ConcentrationViewController {
     
-    private func flipAndUpdateView(for card: Card) {
+    private func flipAndUpdateView(for card: Card, completion: ((Bool) -> ())? = nil) {
         
         guard let cell = cellForCard(card) else {
             return
@@ -120,7 +127,7 @@ extension ConcentrationViewController {
         UIView.transition(with: cell, duration: 0.5, options: transition,
                           animations: {
                             cell.character = newCharacter
-        }, completion: nil)
+        }, completion: completion)
     }
     
     private func cellForCard(_ card: Card) -> CardCell? {
@@ -130,6 +137,16 @@ extension ConcentrationViewController {
         
         let indexPath = IndexPath(row: shuffledIndex, section: 0)
         return collectionView.cellForItem(at: indexPath) as? CardCell
+    }
+    
+    private func animateMatch(for cards: Set<Card>) {
+        UIView.animate(withDuration: 0.5, animations: {
+            for card in cards {
+                if let cell = self.cellForCard(card) {
+                    cell.alpha = 0
+                }
+            }
+        })
     }
     
     private func matchCard(_ card: Card) {
