@@ -26,7 +26,7 @@ public class ConcentrationViewController : UIViewController {
         
         let indexPath = IndexPath(row: shuffledIndex, section: 0)
         
-        guard let cell = collectionView.cellForItem(at: indexPath) as? MyCell else {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CardCell else {
             return
         }
         
@@ -45,7 +45,7 @@ public class ConcentrationViewController : UIViewController {
         
         let indexPath = IndexPath(row: shuffledIndex, section: 0)
         
-        guard let cell = collectionView.cellForItem(at: indexPath) as? MyCell else {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CardCell else {
             return
         }
         
@@ -62,7 +62,7 @@ public class ConcentrationViewController : UIViewController {
         // Set up collectionView and add it to the view hierarchy
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(MyCell.self.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(CardCell.self, forCellWithReuseIdentifier: "cell")
         view.addSubview(collectionView)
 
         // Pin collectionView to view
@@ -81,13 +81,13 @@ extension ConcentrationViewController: UICollectionViewDataSource {
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CardCell
         let card = shuffledCards[indexPath.row]
         configureCell(cell, forCard: card)
         return cell
     }
     
-    private func configureCell(_ cell: MyCell, forCard card: Card) {
+    private func configureCell(_ cell: CardCell, forCard card: Card) {
         let cardState = currentGameState.state(for: card)
         
         if cardState.hasBeenMatched {
@@ -129,67 +129,5 @@ extension ConcentrationViewController: UICollectionViewDelegate {
             flipAndUpdateView(for: card)
             print("TODO: Wrong answer animation")
         }
-    }
-}
-
-class MyCell: UICollectionViewCell {
-
-    var character: Character? {
-        get {
-            return label.text?.first
-        } set {
-            if let newValue = newValue {
-                label.text = String(newValue)
-            } else {
-                label.text = nil
-            }
-        }
-    }
-    
-    func transitionTo(character: Character, options: UIView.AnimationOptions = .transitionFlipFromTop) {
-        UIView.transition(with: self, duration: 0.5, options: options,
-                          animations: {
-                            self.character = character
-        }, completion: nil)
-    }
-
-    private var label: UILabel!
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUp()
-    }
-
-    private func setUp() {
-
-        clipsToBounds = true
-        backgroundColor = .white
-        layer.cornerRadius = frame.width/4
-
-        // Important that the view retained and fully set up here! Otherwise it won't show up in the playground.
-        label = createLabel()
-
-        contentView.addSubview(label)
-        setupConstraints()
-    }
-
-    private func createLabel() -> UILabel {
-        let label = UILabel()
-        label.text = "?"
-        label.font = UIFont.systemFont(ofSize: frame.width*0.6)
-        label.textAlignment = .center
-        return label
-    }
-
-    private func setupConstraints() {
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        label.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("Not implemented or needed in this example")
     }
 }
