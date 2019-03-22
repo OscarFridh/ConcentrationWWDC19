@@ -1,9 +1,35 @@
-//: [Previous](@previous)
 
-import Foundation
+/*:
+ [Previous](@previous)
+ # Practice flags
+ Let's practice some flags of people we might run in to at WWDC!
+  */
 
-// TODO: Concentration game with flags
-// - try if it works with a voice saying the name of the flag!
-var str = "Hello, playground"
+import PlaygroundSupport
+
+let viewController = ConcentrationViewController()
+viewController.cards = [
+    "🇧🇬",
+    "🇩🇪",
+    "🇬🇷",
+    "🇮🇳",
+    "🇮🇹",
+    "🇲🇾",
+    "🇵🇱",
+    "🇪🇸",
+    "🇧🇷",
+    "🇨🇦",
+    "🇦🇺",
+    "🇨🇳",
+    "🇸🇪",
+    "🇺🇸"
+]
+
+PlaygroundPage.current.liveView = viewController
+viewController.voice = Voice(language: .english)
+
+/*:
+ - Experiment: Practice even more flags! For example: 🇳🇴, 🇩🇰 and 🇫🇮. You can also change the voice with a different language accent or turn off the sound if you like.
+ */
 
 //: [Next](@next)
