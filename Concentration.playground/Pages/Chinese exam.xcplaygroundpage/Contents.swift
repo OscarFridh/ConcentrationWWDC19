@@ -1,5 +1,5 @@
-//: A UIKit based Playground for presenting user interface
-  
+//: [Previous](@previous)
+
 import PlaygroundSupport
 
 let viewController = ConcentrationViewController()
@@ -8,3 +8,5 @@ viewController.voice = Voice(language: .chinese)
 
 // Present the view controller in the Live View window
 PlaygroundPage.current.liveView = viewController
+
+//: [Next](@next)
