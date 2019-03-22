@@ -17,13 +17,19 @@ public class ConcentrationViewController : UIViewController {
     // Dependency injection
     public var cards: Set<Character>! {
         didSet {
-            currentGameState = GameState(cards)
+            restartGame()
         }
+    }
+    
+    private func restartGame() {
+        currentGameState = GameState(cards)
+        shuffledCards = Array(currentGameState.cards).shuffled()
+        collectionView.reloadData()
     }
 
     private var currentGameState: GameState!
     
-    lazy private var shuffledCards: [Card] = Array(currentGameState.cards).shuffled()
+    private var shuffledCards: [Card]!
     
     public var voice: Voice?
 
@@ -119,7 +125,7 @@ extension ConcentrationViewController: UICollectionViewDelegate {
             
             // 2.c Show the new card and animation for wrong answer
             flipCard(card, faceUp: true)
-            print("TODO: Wrong answer animation")
+            // TODO: Animation for wrong answer
         }
         
         // Speak the card!
@@ -135,9 +141,7 @@ extension ConcentrationViewController: UICollectionViewDelegate {
 
 extension ConcentrationViewController: ResultsViewControllerDelegate {
     func resultsViewControllerDidFinish(_ viewController: ResultsViewController) {
-         // Restart the game
-        currentGameState = GameState(cards)
-        collectionView.reloadData()
+        restartGame()
         dismiss(animated: true, completion: nil)
     }
 }
