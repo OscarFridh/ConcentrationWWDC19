@@ -41,6 +41,13 @@ public class ResultsViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var restartButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Try again", for: .normal)
+        button.addTarget(self, action: #selector(handleClickOnButton(_:)), for: .touchUpInside)
+        return button
+    }()
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .wwdcBackground
@@ -52,6 +59,7 @@ public class ResultsViewController: UIViewController {
         view.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(messageLabel)
+        stackView.addArrangedSubview(restartButton)
     }
     
     private func setupConstraints() {
@@ -60,7 +68,7 @@ public class ResultsViewController: UIViewController {
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    @objc private func handleClickOnButton(_ sender: Any?) {
         delegate?.resultsViewControllerDidFinish(self)
     }
 }
