@@ -135,6 +135,7 @@ extension ConcentrationViewController: UICollectionViewDelegate {
     private func showResults() {
         let resultsViewController = ResultsViewController()
         resultsViewController.delegate = self
+        resultsViewController.gameState = currentGameState
         present(resultsViewController, animated: true, completion: nil)
     }
 }
