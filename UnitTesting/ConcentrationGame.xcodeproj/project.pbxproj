@@ -16,6 +16,7 @@
 		B87D5B5E2244BF6F00323F3C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D5B5D2244BF6F00323F3C /* Helpers.swift */; };
 		B8BF02C122427D1000CAED89 /* ConcentrationGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8BF02B722427D1000CAED89 /* ConcentrationGame.framework */; };
 		B8BF02C822427D1000CAED89 /* ConcentrationGame.h in Headers */ = {isa = PBXBuildFile; fileRef = B8BF02BA22427D1000CAED89 /* ConcentrationGame.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B8FFC8D12244DFA70091FA0F /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FFC8D02244DFA70091FA0F /* CustomButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		B8BF02BB22427D1000CAED89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B8BF02C022427D1000CAED89 /* ConcentrationGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConcentrationGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8BF02C722427D1000CAED89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B8FFC8D02244DFA70091FA0F /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = ../../Concentration.playground/Sources/CustomButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				B8BF02BA22427D1000CAED89 /* ConcentrationGame.h */,
+				B8FFC8D02244DFA70091FA0F /* CustomButton.swift */,
 				B87D5B592244B94600323F3C /* Voice.swift */,
 				B812DAC5224282A10040764D /* ConcentrationViewController.swift */,
 				B87D5B5B2244BE7000323F3C /* ResultsViewController.swift */,
@@ -215,6 +218,7 @@
 			files = (
 				B87D5B5A2244B94600323F3C /* Voice.swift in Sources */,
 				B87D5B5E2244BF6F00323F3C /* Helpers.swift in Sources */,
+				B8FFC8D12244DFA70091FA0F /* CustomButton.swift in Sources */,
 				B843A68E224375EF00C294C5 /* ConcentrationViewController.swift in Sources */,
 				B843A690224378C700C294C5 /* GameState.swift in Sources */,
 				B87D5B5C2244BE7000323F3C /* ResultsViewController.swift in Sources */,

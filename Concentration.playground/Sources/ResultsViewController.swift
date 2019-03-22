@@ -41,9 +41,8 @@ public class ResultsViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var restartButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Try again", for: .normal)
+    private lazy var restartButton: CustomButton = {
+        let button = CustomButton(image: UIImage(named: "buttonImage.png")!)
         button.addTarget(self, action: #selector(handleClickOnButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -66,6 +65,8 @@ public class ResultsViewController: UIViewController {
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        restartButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     @objc private func handleClickOnButton(_ sender: Any?) {
