@@ -13,5 +13,9 @@ viewController.cards = [
 ]
 viewController.voice = Voice(language: .chinese)
 
+
+//let resultsVC = ResultsViewController()
+//resultsVC.gameState = GameState(["A", "B", "C"])
+
 // Present the view controller in the Live View window
 PlaygroundPage.current.liveView = viewController
