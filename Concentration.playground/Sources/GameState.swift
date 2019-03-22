@@ -16,6 +16,10 @@ public struct GameState {
         return Set(cardStates.map { $0.key })
     }
     
+    public var isFinished: Bool {
+        return matchedCards.count == cards.count
+    }
+    
     /// It is a programmer error to query a card that doesn't exist in the Game
     public func state(for card: Card) -> CardState {
         return cardStates[card]!

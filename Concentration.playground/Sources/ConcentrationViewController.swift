@@ -1,5 +1,3 @@
-//: A UIKit based Playground for presenting user interface
-  
 import UIKit
 
 public class ConcentrationViewController : UIViewController {
@@ -12,7 +10,7 @@ public class ConcentrationViewController : UIViewController {
         layout.minimumInteritemSpacing = 20
         layout.itemSize = CGSize(width: 60, height: 60)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = #colorLiteral(red: 0.07843137255, green: 0.09803921569, blue: 0.1843137255, alpha: 1)
+        collectionView.backgroundColor = .wwdcBackground
         return collectionView
     }()
     
@@ -111,6 +109,10 @@ extension ConcentrationViewController: UICollectionViewDelegate {
             // 2.b Show the new card and animation for correct answer
             flipCard(card, faceUp: true) { _ in
                 self.animateMatch(for: capturedGameState.selectedCards)
+                // Check if game over
+                if capturedGameState.isFinished {
+                    self.showResults()
+                }
             }
             
         } else {
@@ -122,6 +124,21 @@ extension ConcentrationViewController: UICollectionViewDelegate {
         
         // Speak the card!
         voice?.speak("\(card.content)")
+    }
+    
+    private func showResults() {
+        let resultsViewController = ResultsViewController()
+        resultsViewController.delegate = self
+        present(resultsViewController, animated: true, completion: nil)
+    }
+}
+
+extension ConcentrationViewController: ResultsViewControllerDelegate {
+    func resultsViewControllerDidFinish(_ viewController: ResultsViewController) {
+         // Restart the game
+        currentGameState = GameState(cards)
+        collectionView.reloadData()
+        dismiss(animated: true, completion: nil)
     }
 }
 
