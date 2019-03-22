@@ -43,13 +43,9 @@ public class ResultsViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .wwdcBackground
-        
         setupViewHierarchy()
         setupConstraints()
-        
-        print("You finished in \(gameState.moves) moves")
     }
     
     private func setupViewHierarchy() {
