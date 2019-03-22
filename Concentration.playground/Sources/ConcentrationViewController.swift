@@ -2,6 +2,18 @@ import UIKit
 
 public class ConcentrationViewController : UIViewController {
     
+    // Dependency injection
+    public var cards: Set<Character>! {
+        didSet {
+            restartGame()
+        }
+    }
+    
+    public var voice: Voice?
+
+    private var currentGameState: GameState!
+    private var shuffledCards: [Card]!
+    
     private let collectionView: UICollectionView = {
         // TODO: Add a more interesting custom layout
         let layout = UICollectionViewFlowLayout()
@@ -13,25 +25,6 @@ public class ConcentrationViewController : UIViewController {
         collectionView.backgroundColor = .wwdcBackground
         return collectionView
     }()
-    
-    // Dependency injection
-    public var cards: Set<Character>! {
-        didSet {
-            restartGame()
-        }
-    }
-    
-    private func restartGame() {
-        currentGameState = GameState(cards)
-        shuffledCards = Array(currentGameState.cards).shuffled()
-        collectionView.reloadData()
-    }
-
-    private var currentGameState: GameState!
-    
-    private var shuffledCards: [Card]!
-    
-    public var voice: Voice?
 
     
     public override func viewDidLoad() {
@@ -49,6 +42,19 @@ public class ConcentrationViewController : UIViewController {
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+    
+    private func restartGame() {
+        currentGameState = GameState(cards)
+        shuffledCards = Array(currentGameState.cards).shuffled()
+        collectionView.reloadData()
+    }
+    
+    private func showResults() {
+        let resultsViewController = ResultsViewController()
+        resultsViewController.delegate = self
+        resultsViewController.gameState = currentGameState
+        present(resultsViewController, animated: true, completion: nil)
     }
 }
 
@@ -130,13 +136,6 @@ extension ConcentrationViewController: UICollectionViewDelegate {
         
         // Speak the card!
         voice?.speak("\(card.content)")
-    }
-    
-    private func showResults() {
-        let resultsViewController = ResultsViewController()
-        resultsViewController.delegate = self
-        resultsViewController.gameState = currentGameState
-        present(resultsViewController, animated: true, completion: nil)
     }
 }
 

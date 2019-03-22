@@ -10,8 +10,6 @@ import Foundation
 
 public struct GameState {
     
-    private var cardStates: [Card: CardState]
-    
     public var cards: Set<Card> {
         return Set(cardStates.map { $0.key })
     }
@@ -21,6 +19,8 @@ public struct GameState {
     }
     
     public let moves: Int
+    
+    private var cardStates: [Card: CardState]
     
     /// It is a programmer error to query a card that doesn't exist in the Game
     public func state(for card: Card) -> CardState {
@@ -40,7 +40,7 @@ public struct GameState {
         self.init(cardStates: cardStates)
     }
     
-    init(cardStates: [Card: CardState], moves: Int = 0) {
+    private init(cardStates: [Card: CardState], moves: Int = 0) {
         self.cardStates = cardStates
         self.moves = moves
     }

@@ -64,10 +64,13 @@ public class ResultsViewController: UIViewController {
     }
     
     private func setupConstraints() {
+        
+        // Stackview
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
+        // Button
         restartButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
