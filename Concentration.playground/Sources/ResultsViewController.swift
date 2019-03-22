@@ -38,6 +38,7 @@ public class ResultsViewController: UIViewController {
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 8
         return stackView
     }()
     
@@ -58,6 +59,7 @@ public class ResultsViewController: UIViewController {
         view.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(messageLabel)
+        stackView.setCustomSpacing(80, after: messageLabel)
         stackView.addArrangedSubview(restartButton)
     }
     
