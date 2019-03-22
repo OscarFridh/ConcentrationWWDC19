@@ -26,6 +26,8 @@ public class ConcentrationViewController : UIViewController {
     private var currentGameState: GameState!
     
     lazy private var shuffledCards: [Card] = Array(currentGameState.cards).shuffled()
+    
+    public var voice: Voice?
 
     
     public override func viewDidLoad() {
@@ -117,6 +119,9 @@ extension ConcentrationViewController: UICollectionViewDelegate {
             flipCard(card, faceUp: true)
             print("TODO: Wrong answer animation")
         }
+        
+        // Speak the card!
+        voice?.speak("\(card.content)")
     }
 }
 
