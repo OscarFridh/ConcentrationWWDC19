@@ -124,4 +124,21 @@ class GameStateTests: XCTestCase {
         XCTAssert(finalState.isFinished)
     }
     
+    func testMovesIncreasedBySelections() {
+        
+        let initialState = GameState(["A"])
+        let cards = Array(initialState.cards)
+        let card1 = cards[0]
+        let card2 = cards[1]
+        
+        XCTAssertEqual(initialState.moves, 0)
+        
+        let intermediateState = initialState.selecting(card1)
+        XCTAssertEqual(intermediateState.moves, 1)
+        
+        let finalState = intermediateState.selecting(card2)
+        XCTAssertEqual(finalState.moves, 2)
+        
+    }
+    
 }
