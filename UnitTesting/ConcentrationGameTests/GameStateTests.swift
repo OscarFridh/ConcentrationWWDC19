@@ -107,4 +107,21 @@ class GameStateTests: XCTestCase {
         XCTAssertEqual(stateToTest.state(for: card2), CardState(isSelected: false, hasBeenMatched: false))
         XCTAssertEqual(stateToTest.state(for: card3), CardState(isSelected: true, hasBeenMatched: false))
     }
+    
+    
+    func testIsFinished() {
+        let initialState = GameState(["A"])
+        let cards = Array(initialState.cards)
+        let card1 = cards[0]
+        let card2 = cards[1]
+        
+        XCTAssertFalse(initialState.isFinished)
+        
+        let intermediateState = initialState.selecting(card1)
+        XCTAssertFalse(intermediateState.isFinished)
+        
+        let finalState = intermediateState.selecting(card2)
+        XCTAssert(finalState.isFinished)
+    }
+    
 }
