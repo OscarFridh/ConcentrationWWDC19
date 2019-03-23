@@ -2,7 +2,7 @@
 /*:
  [Previous](@previous)
  # Practice flags
- Let's practice some flags of people we might run in to at WWDC!
+ Let's practice some flags of people we might run into at WWDC!
   */
 
 import PlaygroundSupport

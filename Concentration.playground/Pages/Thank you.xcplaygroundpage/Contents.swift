@@ -1,7 +1,7 @@
 /*:
  [Previous](@previous)
  # Thank you!
- I really appreaciate that you took the time to look at my Playground. Here's one last game of concentration before I say good bye.
+ I really appreaciate that you took the time to look at my Playground. Here's one last game of concentration before I say goodbye.
  */
 
 import PlaygroundSupport
@@ -15,6 +15,7 @@ viewController.cards = [
     "✈️",
     "🎉"
 ]
+viewController.voice = Voice(language: .english)
 
 PlaygroundPage.current.liveView = viewController
 

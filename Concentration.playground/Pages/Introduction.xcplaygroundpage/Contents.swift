@@ -15,8 +15,11 @@ import PlaygroundSupport
 // 1. Create and configure a ConcentrationViewController
 let viewController = ConcentrationViewController()
 viewController.cards = [
-    "🇧🇬", // TODO: Other emojis!
-    "🇺🇸"
+    "😍",
+    "👏",
+    "🧠",
+    "🤞",
+    "👨🏻‍💻"
 ]
 
 // Optionally add a voice to read the cards as they are being flipped face up
