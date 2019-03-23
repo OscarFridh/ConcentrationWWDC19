@@ -1,4 +1,5 @@
 timeline.xctimeline
 playground.xcworkspace
 Framework/ConcentrationGame/ConcentrationGame.xcodeproj
-Concentration.xcworkspace
+Concentration.xcworkspace/xcshareddata
+Concentration.xcworkspace/xcuserdata
