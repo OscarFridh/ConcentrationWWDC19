@@ -12,7 +12,7 @@ viewController.voice = Voice(language: .chinese)
 PlaygroundPage.current.liveView = viewController
 
 /*:
- - callout(Tip): It's better with 🔊
+ - callout(Tip): Better with 🔊
  */
 
 //: [Next](@next)

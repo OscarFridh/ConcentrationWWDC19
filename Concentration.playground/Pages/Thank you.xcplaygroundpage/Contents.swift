@@ -1,14 +1,29 @@
-//: [Previous](@previous)
+/*:
+ [Previous](@previous)
+ # Thank you!
+ I really appreaciate that you took the time to look at my Playground. Here's one last game of concentration before I say good bye.
+ */
 
-import Foundation
+import PlaygroundSupport
 
-// Thank the reviewer for taking their time to review my app
-// - link to the github page if they're interested in seing history
-// - contact information?
-// - explain why they should consider me
-//      - how I intend to share my knowledge
-//      - don't make it too long though,
-// - maybe I could use the profile picture here?
-var str = "Hello, playground"
+let viewController = ConcentrationViewController()
+viewController.cards = [
+    "👨🏻‍💻",
+    "🎒",
+    "🏄‍♂️",
+    "🏊‍♂️",
+    "✈️",
+    "🎉"
+]
 
-//: [Next](@next)
+PlaygroundPage.current.liveView = viewController
+
+//: ![Playground icon](profile_small.png)
+
+/*:
+ Bye for now. Hope to see you at **#WWDC2019**!
+ */
+
+/*:
+ - callout(Extra): If you're interested you can check out all the commits of this playground on [Github](https://www.solarsystemscope.com/textures)
+ */

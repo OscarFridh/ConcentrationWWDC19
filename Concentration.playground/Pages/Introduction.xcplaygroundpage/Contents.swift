@@ -1,13 +1,35 @@
-//: A UIKit based Playground for presenting user interface
+/*:
+ # Concentration
+ [Concentration](https://en.wikipedia.org/wiki/Concentration) also known as Match Match, Match Up, Memory, Pelmanism, Shinkei-suijaku, Pexeso or simply Pairs, is a card game in which all of the cards are laid face down on a surface and two cards are flipped face up over each turn. The object of the game is to turn over pairs of matching cards.
+ 
+ In this playground the cards will take on faces of Apple's rich emojis and characters.
+ */
 
-import Foundation
 
-// This will be the landing page:
-// - say hello to Apple
-// - introduce and demonstrate the project in a nice way
-// - in the following pages I will show more examples of how it can be used
-// - be creative with the markup! and tell a nice storey!
+/*:
+ - callout(The API): In order to play a game of concentration we simply create and configure a ConcentrationViewController.
+ */
 
-var str = "Hello, playground"
+import PlaygroundSupport
 
-//: [Next](@next)
+// 1. Create and configure a ConcentrationViewController
+let viewController = ConcentrationViewController()
+viewController.cards = [
+    "🇧🇬", // TODO: Other emojis!
+    "🇺🇸"
+]
+
+// Optionally add a voice to read the cards as they are being flipped face up
+viewController.voice = Voice(language: .english)
+
+// 2. Add the view controller as the liveView
+PlaygroundPage.current.liveView = viewController
+
+
+
+
+/*:
+ In the following pages I have prepared some more games using this API.
+ 
+ [Continue](@next)
+ */
