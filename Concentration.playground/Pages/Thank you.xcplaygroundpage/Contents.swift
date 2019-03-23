@@ -22,7 +22,9 @@ PlaygroundPage.current.liveView = viewController
 //: ![Playground icon](profile_small.png)
 
 /*:
- Bye for now. Hope to see you at **#WWDC2019**!
+ Bye for now. Hope to see you at **#WWDC19**!
+ 
+ Enjoy reviewing the other participants and have a nice day!
  */
 
 /*:
