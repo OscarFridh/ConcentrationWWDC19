@@ -7,7 +7,7 @@
 import PlaygroundSupport
 
 let viewController = ConcentrationViewController()
-viewController.cards = Cards.ChineseGlossaries.chapter1 // (out of 7)
+viewController.cards = ChineseGlossaries.chapter1
 viewController.voice = Voice(language: .chinese)
 
 PlaygroundPage.current.liveView = viewController

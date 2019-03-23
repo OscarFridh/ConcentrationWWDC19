@@ -14,30 +14,34 @@ public class ConcentrationViewController : UIViewController {
     private var currentGameState: GameState!
     private var shuffledCards: [Card]!
     
-    private let collectionView: UICollectionView = {
-        // TODO: Add a more interesting custom layout
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        collectionView.backgroundColor = .wwdcBackground
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(CardCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
+    private let collectionViewLayout: UICollectionViewLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         layout.minimumLineSpacing = 20
         layout.minimumInteritemSpacing = 20
         layout.itemSize = CGSize(width: 60, height: 60)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .wwdcBackground
-        return collectionView
+        return layout
     }()
 
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Set up collectionView and add it to the view hierarchy
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(CardCell.self, forCellWithReuseIdentifier: "cell")
         view.addSubview(collectionView)
-
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
         // Pin collectionView to view
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -86,7 +90,6 @@ extension ConcentrationViewController: UICollectionViewDataSource {
             cell.character = "?"
         }
     }
-    
 }
 
 extension ConcentrationViewController: UICollectionViewDelegate {
