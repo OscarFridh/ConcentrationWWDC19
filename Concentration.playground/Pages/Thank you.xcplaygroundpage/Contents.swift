@@ -28,5 +28,5 @@ PlaygroundPage.current.liveView = viewController
  */
 
 /*:
- - callout(Extra): If you're interested you can check out all the commits of this playground on [Github](https://www.solarsystemscope.com/textures)
+ - callout(Extra): If you're interested you can check out all the commits of this playground on [Github](https://github.com/OscarFridh/ConcentrationWWDC19)
  */
