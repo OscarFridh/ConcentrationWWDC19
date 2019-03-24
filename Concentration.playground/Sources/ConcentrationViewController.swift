@@ -77,18 +77,8 @@ extension ConcentrationViewController: UICollectionViewDataSource {
     
     private func configureCell(_ cell: CardCell, forCard card: Card) {
         let cardState = currentGameState.state(for: card)
-        
-        if cardState.hasBeenMatched {
-            cell.contentView.alpha = 0
-        } else {
-            cell.contentView.alpha = 1
-        }
-        
-        if cardState.isSelected {
-            cell.character = card.content
-        } else {
-            cell.character = "?"
-        }
+        cell.contentView.alpha = cardState.hasBeenMatched ? 0 : 1
+        cell.character = cardState.isSelected ? card.content : "?"
     }
 }
 
