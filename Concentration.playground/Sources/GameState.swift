@@ -1,11 +1,3 @@
-//
-//  GameState.swift
-//  ConcentrationGame
-//
-//  Created by Oscar Fridh on 2019-03-20.
-//  Copyright © 2019 Oscar Fridh. All rights reserved.
-//
-
 import Foundation
 
 public struct GameState {

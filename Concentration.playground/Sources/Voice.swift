@@ -1,11 +1,3 @@
-//
-//  Voice.swift
-//  ConcentrationGame
-//
-//  Created by Oscar Fridh on 2019-03-22.
-//  Copyright © 2019 Oscar Fridh. All rights reserved.
-//
-
 import AVFoundation
 
 public enum LanguageCode: String {

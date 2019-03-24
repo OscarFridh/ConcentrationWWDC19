@@ -1,11 +1,3 @@
-//
-//  CardCell.swift
-//  ConcentrationGame
-//
-//  Created by Oscar Fridh on 2019-03-21.
-//  Copyright © 2019 Oscar Fridh. All rights reserved.
-//
-
 import UIKit
 
 class CardCell: UICollectionViewCell {
